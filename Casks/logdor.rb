@@ -14,7 +14,7 @@ cask "logdor" do
     url "https://github.com/aedrax/logdor/releases/download/v#{version}/Logdor-linux-x86_64-webengine.AppImage"
 
     app_image "Logdor-linux-x86_64-webengine.AppImage", target: "Logdor.AppImage"
-    binary "~/Applications/Logdor.AppImage", target: "logdor"
+    binary "#{Dir.home}/Applications/Logdor.AppImage", target: "logdor"
   end
 
   name "Logdor"

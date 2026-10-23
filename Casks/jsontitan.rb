@@ -14,7 +14,7 @@ cask "jsontitan" do
     url "https://github.com/aedrax/JSONtitan/releases/download/v#{version}/JSONTitan-linux-x86_64.AppImage"
 
     app_image "JSONTitan-linux-x86_64.AppImage", target: "JSONTitan.AppImage"
-    binary "~/Applications/JSONTitan.AppImage", target: "jsontitan"
+    binary "#{Dir.home}/Applications/JSONTitan.AppImage", target: "jsontitan"
   end
 
   name "JSONTitan"
