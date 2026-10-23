@@ -15,6 +15,37 @@ cask "jsontitan" do
 
     app_image "JSONTitan-linux-x86_64.AppImage", target: "JSONTitan.AppImage"
     binary "#{Dir.home}/Applications/JSONTitan.AppImage", target: "jsontitan"
+
+    postflight_steps do
+      mkdir_p ".local/share/applications", base: :home
+      mkdir_p ".local/share/icons/hicolor/256x256/apps", base: :home
+      run "Applications/JSONTitan.AppImage",
+          base:           :home,
+          args:           ["--appimage-extract", "usr/share/icons/hicolor/256x256/apps/jsontitan.png"],
+          chdir:          "{{temp}}",
+          writable_paths: "{{temp}}"
+      copy "{{temp}}/squashfs-root/usr/share/icons/hicolor/256x256/apps/jsontitan.png",
+           ".local/share/icons/hicolor/256x256/apps/jsontitan.png",
+           target_base: :home
+      write_file ".local/share/applications/jsontitan.desktop", <<~EOS, base: :home
+        [Desktop Entry]
+        Type=Application
+        Name=JSONTitan
+        Comment=Fast JSON viewer and editor
+        Exec={{HOMEBREW_PREFIX}}/bin/jsontitan %f
+        Icon=jsontitan
+        Categories=Development;Utility;
+        MimeType=application/json;
+        Terminal=false
+      EOS
+    end
+
+    uninstall_postflight_steps do
+      remove [
+        ".local/share/applications/jsontitan.desktop",
+        ".local/share/icons/hicolor/256x256/apps/jsontitan.png",
+      ], base: :home
+    end
   end
 
   name "JSONTitan"

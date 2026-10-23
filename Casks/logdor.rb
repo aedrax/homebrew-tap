@@ -15,6 +15,36 @@ cask "logdor" do
 
     app_image "Logdor-linux-x86_64-webengine.AppImage", target: "Logdor.AppImage"
     binary "#{Dir.home}/Applications/Logdor.AppImage", target: "logdor"
+
+    postflight_steps do
+      mkdir_p ".local/share/applications", base: :home
+      mkdir_p ".local/share/icons/hicolor/256x256/apps", base: :home
+      run "Applications/Logdor.AppImage",
+          base:           :home,
+          args:           ["--appimage-extract", "usr/share/icons/hicolor/256x256/apps/logdor.png"],
+          chdir:          "{{temp}}",
+          writable_paths: "{{temp}}"
+      copy "{{temp}}/squashfs-root/usr/share/icons/hicolor/256x256/apps/logdor.png",
+           ".local/share/icons/hicolor/256x256/apps/logdor.png",
+           target_base: :home
+      write_file ".local/share/applications/logdor.desktop", <<~EOS, base: :home
+        [Desktop Entry]
+        Type=Application
+        Name=Logdor
+        Comment=Log file viewer with pluggable format parsers
+        Exec={{HOMEBREW_PREFIX}}/bin/logdor %F
+        Icon=logdor
+        Categories=Development;Utility;
+        Terminal=false
+      EOS
+    end
+
+    uninstall_postflight_steps do
+      remove [
+        ".local/share/applications/logdor.desktop",
+        ".local/share/icons/hicolor/256x256/apps/logdor.png",
+      ], base: :home
+    end
   end
 
   name "Logdor"
