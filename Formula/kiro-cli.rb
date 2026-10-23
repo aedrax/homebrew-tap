@@ -10,6 +10,11 @@ class KiroCli < Formula
     end
   end
 
+  on_macos do
+    url "https://prod.download.cli.kiro.dev/stable/#{version}/Kiro%20CLI.dmg"
+    sha256 "f544b4f9de51a457e1ed0849ffdf2be7b6b70af491330006b01cb71fa2111f44"
+  end
+
   on_linux do
     on_intel do
       url "https://prod.download.cli.kiro.dev/stable/#{version}/kirocli-x86_64-linux.tar.xz"
@@ -23,9 +28,15 @@ class KiroCli < Formula
   end
 
   def install
-    bin.install "bin/kiro-cli"
-    bin.install "bin/kiro-cli-chat"
-    bin.install "bin/kiro-cli-term"
+    if OS.mac?
+      app_root = Pathname("Kiro CLI.app").exist? ? Pathname("Kiro CLI.app") : buildpath
+      libexec.install app_root/"Contents"
+      bin.install_symlink Dir["#{libexec}/Contents/MacOS/kiro-cli*"]
+    else
+      bin.install "bin/kiro-cli"
+      bin.install "bin/kiro-cli-chat"
+      bin.install "bin/kiro-cli-term"
+    end
   end
 
   test do
