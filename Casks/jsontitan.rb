@@ -1,8 +1,8 @@
 cask "jsontitan" do
-  version "1.0.0"
-  sha256 arm:          "4ae622739b07619ee36a7eca5ddeebda5b2e23457a65bb5fda72aed3ececae68",
-         intel:        "4ae622739b07619ee36a7eca5ddeebda5b2e23457a65bb5fda72aed3ececae68",
-         x86_64_linux: "389f91c68750864a2ce5c2f5992887d564aaf0a0d8a64d588c43731da5e8f410"
+  version "1.1.0"
+  sha256 arm:          "204163464480cab139229c6485b20f17e580a89572995a0ceff82895b9ebe1f5",
+         intel:        "204163464480cab139229c6485b20f17e580a89572995a0ceff82895b9ebe1f5",
+         x86_64_linux: "e40be25b02a358116e6cbf5c2486776606c6a2681a51e645313f5e655533bf39"
 
   on_macos do
     url "https://github.com/aedrax/JSONtitan/releases/download/v#{version}/JSONTitan-macos-universal.dmg"
