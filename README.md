@@ -32,6 +32,7 @@ brew install <name>
 | :--- | :--- | :--- | :--- |
 | [`logdor`](Casks/logdor.rb) | macOS (`universal`), Linux (`x86_64`) | Log viewer with WebEngine map viewer support | `brew install --cask aedrax/tap/logdor` |
 | [`jsontitan`](Casks/jsontitan.rb) | macOS (`universal`), Linux (`x86_64`) | View and search very large JSON files | `brew install --cask aedrax/tap/jsontitan` |
+| [`mattermost-desktop`](Casks/mattermost-desktop.rb) | macOS (`arm64`, `x64`), Linux (`arm64`, `x86_64`) | Desktop client for Mattermost team messaging | `brew install --cask aedrax/tap/mattermost-desktop` |
 
 ## Updating
 
